@@ -10,6 +10,11 @@ const domMapping = () => {
 
 const appendEventlisteners = () => {
     window.addEventListener('resize', game.handleResize);
+    window.addEventListener('keydown', evt => {
+        if (evt.key == ' ' || evt.key == 'Shift' || evt.key == 'Control') {
+            settings.player.handleTurn();
+        }
+    })
 }
 
 const init = () => {

@@ -1,7 +1,9 @@
 'use strict';
 
 const settings = {
-    elements:{}
+    elements: {},
+    paused:false,
+    
 }
 
 export default settings;
