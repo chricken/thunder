@@ -19,11 +19,11 @@ class Lightning {
     addPart(lastPoint) {
         let distance = Math.random() * (this.maxStepWidth - this.minStepWidth) + this.minStepWidth;
         let angle = lastPoint.angle + (Math.random() * (this.maxDeltaAngle * 2) - this.maxDeltaAngle);
-        
+
         // clamp
-        angle = Math.max(angle, -Math.PI/2);
-        angle = Math.min(angle, Math.PI/2);
-        
+        angle = Math.max(angle, -Math.PI / 2);
+        angle = Math.min(angle, Math.PI / 2);
+        console.log(angle);
         let deltaX = Math.sin(angle) * distance;
         let deltaY = Math.cos(angle) * distance;
 
@@ -35,7 +35,9 @@ class Lightning {
         this.path.push(point)
 
         // Eintragen des nächsten Blitzes
-        setTimeout(this.addPart.bind(this), 60, point)
+        if (point.y <= 1) {
+            setTimeout(this.addPart.bind(this), 60, point)
+        }
     }
     update() {
 
