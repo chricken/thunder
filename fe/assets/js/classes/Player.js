@@ -31,9 +31,9 @@ class Player {
         ctx.fillStyle = '#f00';
 
         ctx.fillRect(
-            (this.posX - this.size / 2) * c.width,
+            (this.posX - this.size / 4) * c.width,
             (this.posY - this.size) * c.height,
-            this.size * c.height,
+            (this.size / 2) * c.height,
             this.size * c.height,
         )
     }

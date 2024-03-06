@@ -19,6 +19,7 @@ const game = {
         const ctx = c.getContext('2d');
         ctx.clearRect(0, 0, c.width, c.height);
 
+
         // Create linear gradient
         const gradient = ctx.createLinearGradient(0, 0, 0, c.height * .8);
         gradient.addColorStop(0, 'midnightblue');
@@ -30,6 +31,7 @@ const game = {
 
         settings.player.render();
 
+        // settings.lightning.render(.003);
         settings.lightning.render();
     },
     handleResize() {
