@@ -7,6 +7,7 @@ import settings, { elements } from './settings.js';
 
 const game = {
     update() {
+        settings.potts.forEach(pott => pott.update());
         settings.player.update();
 
         game.render();
@@ -29,10 +30,14 @@ const game = {
         ctx.fillStyle = gradient;
         ctx.fillRect(0, 0, c.width, c.height);
 
-        settings.player.render();
-
-        // settings.lightning.render(.003);
+        // Blitze rendern
         settings.lightning.render();
+
+        // Potts rendern
+        settings.potts.forEach(pott => pott.render())
+
+        // Spieler rendern
+        settings.player.render();
     },
     handleResize() {
         let w = window.innerWidth;

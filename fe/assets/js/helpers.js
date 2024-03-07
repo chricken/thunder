@@ -6,11 +6,7 @@ const helpers = {
 
     },
     createLightningColor() {
-        let color = `
-        hsl(
-            ${helpers.createNumber(180, 230)},
-            ${helpers.createNumber(90,100)}%,
-            ${helpers.createNumber(90,100)}%)`
+        let color = `hsl(${helpers.createNumber(180, 230)},${helpers.createNumber(90, 100)}%,${helpers.createNumber(90, 100)}%)`
         return color;
     }
 }

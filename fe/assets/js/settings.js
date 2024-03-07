@@ -3,7 +3,7 @@
 const settings = {
     elements: {},
     paused:false,
-    
+    potts:[]
 }
 
 export default settings;

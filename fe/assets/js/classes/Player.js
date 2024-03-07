@@ -6,7 +6,7 @@ class Player {
     constructor() {
         this.posX = .1;
         this.posY = 1;
-        this.speed = .01;
+        this.speed = .02;
         this.size = .05;
     }
     changeDirection() {
