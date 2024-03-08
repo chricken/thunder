@@ -40,7 +40,7 @@ const game = {
         // Fill with gradient
         ctx.fillStyle = gradient;
         ctx.fillRect(0, 0, c.width, c.height);
-        
+
         if (settings.lightning)
             settings.lightning.render();
     },
@@ -71,7 +71,8 @@ const game = {
         clearTimeout(settings.timerIDNewLightning);
 
         if (confirm(`Sie sind am Blitzschlag gestorben.\nSie haben ${settings.player.score} Punkte erreicht.\nWollen Sie noch eine Runde spielen?`)) {
-            game.reset();
+            // game.reset();
+            location.reload();
         }
 
     },

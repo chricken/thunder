@@ -62,8 +62,9 @@ class Lightning {
             let lastPoint = path[path.length - 1];
             let distance = Math.random() * (this.maxStepWidth - this.minStepWidth) + this.minStepWidth;
             let angle = lastPoint.angle + (Math.random() * (this.maxDeltaAngle * 2) - this.maxDeltaAngle);
+            // Je weiter der Blitz unten ist, desto gerader soll er laufen
+            angle *= (1 - lastPoint.y) ** (1 / 5);
 
-            // clamp
             angle = Math.max(angle, -Math.PI / 3);
             angle = Math.min(angle, Math.PI / 3);
 

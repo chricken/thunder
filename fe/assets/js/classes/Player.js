@@ -29,7 +29,7 @@ class Player {
 
         this.score += this.goldToAdd;
         elements.score.innerHTML = this.score;
-        console.log(this.goldToAdd, this.score);
+        // console.log(this.goldToAdd, this.score);
         settings.scores.push(new Score(this.posX, this.posY, this.goldToAdd))
         this.goldToAdd += 1;
 
@@ -40,8 +40,11 @@ class Player {
         this.hitTestPotts();
         this.hitTestKillZones();
     }
-    kill(){
-        this.handleGameOver()
+    kill() {
+        // Auf den nächsten Refresh warten, damit im score-Element auf jeden Fall der richtige Wert steht
+        requestAnimationFrame(
+            this.handleGameOver
+        )
     }
     hitTestKillZones() {
         settings.killZones.forEach(killZone => {
