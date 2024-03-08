@@ -1,15 +1,17 @@
 'use strict';
 
 import settings, { elements } from '../settings.js';
+import Score from './Score.js';
 
 class Player {
-    constructor() {
+    constructor(handleGameOver) {
         this.posX = .1;
         this.posY = 1;
         this.speed = .008;
         this.size = .05;
         this.goldToAdd = 1
         this.score = 0;
+        this.handleGameOver = handleGameOver;
         // Debouncer
         this.reset = this.resetGold();
     }
@@ -23,14 +25,33 @@ class Player {
             }, settings.delayNewLightning / 2)
         }
     }
-    addGold(callback) {
+    addGold() {
 
         this.score += this.goldToAdd;
         elements.score.innerHTML = this.score;
+        console.log(this.goldToAdd, this.score);
+        settings.scores.push(new Score(this.posX, this.posY, this.goldToAdd))
         this.goldToAdd += 1;
-        // this.reset();
 
-
+    }
+    update(game) {
+        this.posX += this.speed;
+        this.checkBorders();
+        this.hitTestPotts();
+        this.hitTestKillZones();
+    }
+    kill(){
+        this.handleGameOver()
+    }
+    hitTestKillZones() {
+        settings.killZones.forEach(killZone => {
+            let deltaX = killZone.x - this.posX;
+            let deltaY = 0;
+            let distance = Math.hypot(deltaX, deltaY);
+            if (distance <= this.size / 2) {
+                this.kill();
+            }
+        })
     }
     hitTestPotts() {
         settings.potts.forEach(pott => {
@@ -42,12 +63,6 @@ class Player {
                 pott.kill();
             }
         })
-    }
-    update() {
-        this.posX += this.speed;
-        this.checkBorders();
-        this.hitTestPotts();
-
     }
     checkBorders() {
         if (this.posX > (1 - this.size / 2) || this.posX < this.size / 2) {

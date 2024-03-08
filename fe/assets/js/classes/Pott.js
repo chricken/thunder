@@ -19,8 +19,7 @@ class Pott {
         )
     }
     kill(){
-        // console.log(this);
-        settings.potts = settings.potts.filter(pott => pott !=  this)
+        settings.potts = settings.potts.filter(pott => pott !=  this);
     }
     
     render() {

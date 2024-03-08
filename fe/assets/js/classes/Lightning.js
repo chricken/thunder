@@ -25,7 +25,7 @@ class Lightning {
         }]];
 
         settings.player.goldToAdd = 1;
-        console.clear()
+        settings.killZones = [];
 
         this.addPart();
     }
@@ -46,13 +46,17 @@ class Lightning {
             // console.log(color);
 
             if (light <= 0) {
-                this.paths = this.paths.filter(el => el != path)
+                this.paths = this.paths.filter(el => el != path);
+                settings.killZones = settings.killZones.filter(zone =>
+                    zone != path[path.length - 1]
+                )
                 clearInterval(recolorID)
             }
         }
         // recolorAndKill();
         let recolorID = setInterval(recolorAndKill, 30)
     }
+
     addPart() {
         this.paths.forEach(path => {
             let lastPoint = path[path.length - 1];
@@ -60,14 +64,14 @@ class Lightning {
             let angle = lastPoint.angle + (Math.random() * (this.maxDeltaAngle * 2) - this.maxDeltaAngle);
 
             // clamp
-            angle = Math.max(angle, -Math.PI / 2);
-            angle = Math.min(angle, Math.PI / 2);
+            angle = Math.max(angle, -Math.PI / 3);
+            angle = Math.min(angle, Math.PI / 3);
 
             // Positionen
             let deltaX = Math.sin(angle) * distance;
             let deltaY = Math.cos(angle) * distance;
             let x = lastPoint.x + deltaX;
-            let y = lastPoint.y + deltaY;
+            let y = Math.min(lastPoint.y + deltaY, 1);
 
             // Clamp
             if (x < -this.lineWidth) {
@@ -103,6 +107,7 @@ class Lightning {
         // console.log(lowest);
 
         if (lowest <= 1) {
+            // Blitz weiter laufen lassen
             setTimeout(
                 this.addPart.bind(this),
                 helpers.createNumber(
@@ -111,27 +116,33 @@ class Lightning {
                 )
             )
         } else {
+            // Blitz schlägt ein
             // Andere Pfade löschen
             this.paths
                 .filter(path => path[path.length - 1].y < 1)
                 .forEach(this.removePath.bind(this));
 
-            // Killzonen eintragen
+            // Hauptpfade bearbeiten
+            this.paths
+                .filter(path => path[path.length - 1].y >= 1)
+                .forEach(path => {
+                    // Killzonen eintragen
+                    settings.killZones.push(path[path.length - 1]);
+                    setTimeout(() => {
+                        // console.log(settings.killZones);
 
-            // Hauptpfad(e) löschen
-            setTimeout(() => {
-                this.paths
-                    .filter(path => path[path.length - 1].y >= 1)
-                    .forEach(this.removePath.bind(this));
+                        this.removePath(path);
+                    }, this.delayRemoveMainPath);
+                })
 
-                setTimeout(() => {
-                    settings.lightning = new Lightning();
-                }, settings.delayNewLightning)
+            settings.timerIDNewLightning = setTimeout(() => {
+                settings.lightning = new Lightning();
+            }, settings.delayNewLightning)
 
-            }, this.delayRemoveMainPath)
             // this.paths = this.paths.filter(path => path[path.length - 1].y >= 1);
         }
     }
+
     update() {
 
     }
