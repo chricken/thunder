@@ -2,6 +2,7 @@
 
 import settings, { elements } from '../settings.js';
 import Score from './Score.js';
+import game from '../game.js';
 
 class Player {
     constructor(handleGameOver) {
@@ -10,7 +11,7 @@ class Player {
         this.speed = .008;
         this.size = .05;
         this.goldToAdd = 1
-        this.score = 0;
+        // settings.score = 0;
         this.handleGameOver = handleGameOver;
         // Debouncer
         this.reset = this.resetGold();
@@ -27,9 +28,10 @@ class Player {
     }
     addGold() {
 
-        this.score += this.goldToAdd;
-        elements.score.innerHTML = this.score;
-        // console.log(this.goldToAdd, this.score);
+        settings.score.points += this.goldToAdd;
+        // elements.score.innerHTML = settings.score;
+        game.drawScore();
+        console.log(this.goldToAdd, settings.score.points);
         settings.scores.push(new Score(this.posX, this.posY, this.goldToAdd))
         this.goldToAdd += 1;
 

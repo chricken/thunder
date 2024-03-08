@@ -18,11 +18,25 @@ const appendEventlisteners = () => {
     })
 }
 
+const loadData = () => {
+    return fetch('/score').then(
+        res => res.json()
+    ).then(
+        res => settings.scoreTable = res
+    )
+}
+
 const init = () => {
+    loadData().then(
+        game.init
+    ).then(
+        game.drawScore
+    ).catch(
+        console.warn
+    )
     domMapping();
     appendEventlisteners();
 
-    game.init();
 }
 
 // INIT
