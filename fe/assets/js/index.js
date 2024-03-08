@@ -6,6 +6,7 @@ import game from './game.js';
 // FUNKTIONEN
 const domMapping = () => {
     elements.spielfeld = document.querySelector('#spielfeld');
+    elements.score = document.querySelector('#score');
 }
 
 const appendEventlisteners = () => {

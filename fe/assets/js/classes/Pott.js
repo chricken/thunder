@@ -8,7 +8,7 @@ class Pott {
         this.x = point.x;
         this.y = point.y;
         this.color = '#0f0';
-        this.size = .01;
+        this.size = .016;
         this.lifetime = helpers.createNumber(800,1500);
 
         this.speedY = .02;
@@ -22,6 +22,7 @@ class Pott {
         // console.log(this);
         settings.potts = settings.potts.filter(pott => pott !=  this)
     }
+    
     render() {
         let c = elements.spielfeld;
         let ctx = c.getContext('2d');

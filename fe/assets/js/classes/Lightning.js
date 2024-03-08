@@ -15,7 +15,6 @@ class Lightning {
         this.minDelayNewPart = 30;
         this.maxDelayNewPart = 60;
         this.delayRemoveMainPath = 800;
-        this.delayNewLightning = 1000;
         this.fadeoutSpeed = 20;
 
         this.paths = [[{
@@ -24,6 +23,9 @@ class Lightning {
             angle: Math.random() * (.5 * Math.PI) - (.25 * Math.PI),
             color: helpers.createLightningColor()
         }]];
+
+        settings.player.goldToAdd = 1;
+        console.clear()
 
         this.addPart();
     }
@@ -114,6 +116,8 @@ class Lightning {
                 .filter(path => path[path.length - 1].y < 1)
                 .forEach(this.removePath.bind(this));
 
+            // Killzonen eintragen
+
             // Hauptpfad(e) löschen
             setTimeout(() => {
                 this.paths
@@ -122,7 +126,7 @@ class Lightning {
 
                 setTimeout(() => {
                     settings.lightning = new Lightning();
-                }, this.delayNewLightning)
+                }, settings.delayNewLightning)
 
             }, this.delayRemoveMainPath)
             // this.paths = this.paths.filter(path => path[path.length - 1].y >= 1);
@@ -143,7 +147,6 @@ class Lightning {
             // Lightning
             ctx.lineWidth = c.width * this.lineWidth;
             ctx.strokeStyle = path[0].color;
-            console.log();
             ctx.beginPath();
             ctx.moveTo(
                 path[0].x * c.width,

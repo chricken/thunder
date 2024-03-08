@@ -3,7 +3,9 @@
 const settings = {
     elements: {},
     paused:false,
-    potts:[]
+    potts:[],
+    delayNewLightning: 1000,
+    player:false,
 }
 
 export default settings;

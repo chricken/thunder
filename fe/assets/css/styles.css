@@ -22,3 +22,10 @@ main {
     /* background-color: linear-gradient(rgb(38, 38, 119), black); */
     border-radius: 5px;
 }
+#score {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    font-size: 60px;
+    color:#fff;
+}

@@ -49,8 +49,8 @@ const game = {
     },
     init() {
         game.handleResize();
+        settings.player = new Player();
         settings.lightning = new Lightning();
-        settings.player = new Player(.1);
         requestAnimationFrame(game.update);
     }
 }
