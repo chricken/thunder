@@ -1,6 +1,7 @@
 'use strict';
 
 import settings from './settings.js';
+import game from './game.js';
 let socket = io.connect();
 
 const com = {
@@ -8,7 +9,7 @@ const com = {
         socket.emit('setScore', settings.score)
     },
     init() {
-        socket.on('getScore', scoreTable)
+        socket.on('getScore', game.drawScoreTable)
     }
 }
 

@@ -2,6 +2,7 @@
 
 import settings, { elements } from './settings.js';
 import game from './game.js';
+import com from './socket.js';
 
 // FUNKTIONEN
 const domMapping = () => {
@@ -23,8 +24,8 @@ const appendEventlisteners = () => {
 const init = () => {
     domMapping();
     appendEventlisteners();
-    game.init()
-
+    game.init();
+    com.init();
 }
 
 // INIT

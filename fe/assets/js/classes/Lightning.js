@@ -16,6 +16,7 @@ class Lightning {
         this.maxDelayNewPart = 60;
         this.delayRemoveMainPath = 800;
         this.fadeoutSpeed = 20;
+        this.maxPaths = 5;
 
         this.paths = [[{
             x: Math.random(),
@@ -87,17 +88,26 @@ class Lightning {
             let point = { x, y, angle, color: helpers.createLightningColor() };
             path.push(point);
 
-            if (Math.random() < this.probabilityToBranch) {
+            // if (this.paths.length < this.maxPaths) {
+            // Wenn die Wahrscheinlichkeit und die Anzahl 
+            // erlaubter Branches unterschritten ist, erzeuge einen neuen Branch
+
+            if (
+                Math.random() < this.probabilityToBranch
+                && this.paths.length < this.maxPaths
+            ) {
+                // debugger;
                 // let newPath = JSON.parse(JSON.stringify(path));
                 let newPath = path.map(point => { return { ...point } });
                 newPath.map(point => {
                     point.x += (Math.random() * this.shiver - (this.shiver / 2));
                     point.y += (Math.random() * this.shiver - (this.shiver / 2));
                 });
+
                 newPath[0].color = helpers.createLightningColor();
                 this.paths.unshift(newPath);
             }
-
+            // }
         })
 
         // Eintragen des nächsten Punktes
@@ -107,7 +117,7 @@ class Lightning {
 
         // console.log(lowest);
 
-        if (lowest <= 1) {
+        if (lowest < 1) {
             // Blitz weiter laufen lassen
             setTimeout(
                 this.addPart.bind(this),

@@ -28,7 +28,6 @@ class Player {
         }
     }
     addGold() {
-
         settings.score.points += this.goldToAdd;
         // elements.score.innerHTML = settings.score;
         // game.drawScore();

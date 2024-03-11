@@ -26,15 +26,9 @@ const game = {
             requestAnimationFrame(() => game.update(roundID));
         }
     },
-    drawScore() {
+    drawScoreTable(scoreTable) {
         elements.score.innerHTML = '';
-        console.log(settings);
-        const scoreTable = [
-            ...settings.scoreTable,
-            settings.score
-        ];
-
-        scoreTable.sort((a, b) => b.points - a.points);
+        //  console.log(scoreTable);
 
         scoreTable.forEach(score => {
             let elScore = document.createElement('div');
@@ -42,7 +36,7 @@ const game = {
             elScore.className = 'oneScore'
 
             // Score des aktuellen Spielers hervorheben
-            if (score == settings.score) {
+            if (score.name == '') {
                 elScore.classList.add('currentPlayer');
             }
 
@@ -50,7 +44,7 @@ const game = {
             if (score.name) {
                 let elName = document.createElement('div');
                 elName.className = 'scoreName';
-                elName.innerHTML = score.name;
+                elName.innerHTML = score.index + ': ' + score.name;
                 elScore.append(elName);
             }
 
@@ -113,8 +107,8 @@ const game = {
             let name = prompt('Sie haben einen Platz im Highscore erreicht.\nBitte geben Sie ihren Namen ein');
             settings.score.name = name;
             fetch('/score', {
-                method:'post',
-                headers: {'content-type': 'application/json'},
+                method: 'post',
+                headers: { 'content-type': 'application/json' },
                 body: JSON.stringify(settings.score)
             })
             // Antwort wird nicht verarbeitet
@@ -149,6 +143,7 @@ const game = {
         elements.spielfeld.height = size * .95;
     },
     init() {
+        com.sendScore({ points: 0 })
         game.handleResize();
         game.reset();
     }

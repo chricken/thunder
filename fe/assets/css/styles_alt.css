@@ -29,21 +29,3 @@ main {
     font-size: 60px;
     color:#fff;
 }
-.oneScore {
-    position: relative;
-    font-size: 20px;
-    width:200px;
-    height: 20px;
-}
-.oneScore.currentPlayer {
-    color: #f00;
-}
-
-.scoreName {
-    position: absolute;
-    left:0;
-}
-.scorePoints {
-    position: absolute;
-    right:0;
-}
