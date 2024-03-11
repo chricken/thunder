@@ -16,7 +16,7 @@ class Lightning {
         this.maxDelayNewPart = 60;
         this.delayRemoveMainPath = 800;
         this.fadeoutSpeed = 20;
-        this.maxPaths = 5;
+        this.maxPaths =10;
 
         this.paths = [[{
             x: Math.random(),

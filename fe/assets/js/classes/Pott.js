@@ -9,7 +9,7 @@ class Pott {
         this.y = point.y;
         this.color = '#0f0';
         this.size = .016;
-        this.lifetime = helpers.createNumber(800,1500);
+        this.lifetime = helpers.createNumber(1200,2000);
 
         this.speedY = .02;
 

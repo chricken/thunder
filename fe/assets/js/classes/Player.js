@@ -9,8 +9,8 @@ class Player {
     constructor(handleGameOver) {
         this.posX = .1;
         this.posY = 1;
-        this.speed = .008;
-        this.size = .05;
+        this.speed = .01;
+        this.size = .04;
         this.goldToAdd = 1
         // settings.score = 0;
         this.handleGameOver = handleGameOver;
