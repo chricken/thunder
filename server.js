@@ -2,28 +2,33 @@
 
 import express from 'express';
 import fs from 'fs';
+import http from 'http';
+import {Server} from 'socket.io';
 
+// Variablen
+let scoreTable = [];
 const filePath = './data/scoretable.json';
 
-const server = express();
-let scoreTable = [];
-
-server.use(express.static('fe', {
+// Express
+const expressServer = express();
+expressServer.use(express.static('fe', {
     extensions: ['html']
 }));
 
-server.use(express.json());
+// HTTP
+const httpServer = http.Server(expressServer);
 
-server.get('/score', (request, response) => {
-    // console.log('score');
-    response.json(scoreTable);
+// Websocket
+const io = new Server(httpServer);
+
+// Socket-Eventlistener
+io.on('connect', socket => {
+    console.log(socket.id);
+
+    socket.on('score')
 })
 
-server.post('/score', (request, response) => {
-    console.log(request.body);
-    scoreTable.push(request.body);
-    scoreTable.sort((a, b) => a.points - b.points);
-})
+
 
 const init = () => {
     fs.readFile(
@@ -32,7 +37,8 @@ const init = () => {
             if (!err) {
                 scoreTable = JSON.parse(data.toString());
             }
-            server.listen(80, err => console.log(err || 'Server läuft'));
+            console.log(scoreTable);
+            httpServer.listen(80, err => console.log(err || 'Server läuft'));
         }
     )
 }

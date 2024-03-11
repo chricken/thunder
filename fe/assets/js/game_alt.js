@@ -4,10 +4,11 @@ import Lightning from './classes/Lightning.js';
 import Player from './classes/Player.js';
 import Pott from './classes/Pott.js';
 import settings, { elements } from './settings.js';
-import com from './socket.js';
 
 const game = {
     update(roundID) {
+
+
         settings.potts.forEach(pott => pott.update());
         settings.scores.forEach(score => score.update());
 
@@ -25,42 +26,6 @@ const game = {
         if (!settings.gameOver && settings.roundID == roundID) {
             requestAnimationFrame(() => game.update(roundID));
         }
-    },
-    drawScore() {
-        elements.score.innerHTML = '';
-        console.log(settings);
-        const scoreTable = [
-            ...settings.scoreTable,
-            settings.score
-        ];
-
-        scoreTable.sort((a, b) => b.points - a.points);
-
-        scoreTable.forEach(score => {
-            let elScore = document.createElement('div');
-            elements.score.append(elScore);
-            elScore.className = 'oneScore'
-
-            // Score des aktuellen Spielers hervorheben
-            if (score == settings.score) {
-                elScore.classList.add('currentPlayer');
-            }
-
-            // Name des Spielers
-            if (score.name) {
-                let elName = document.createElement('div');
-                elName.className = 'scoreName';
-                elName.innerHTML = score.name;
-                elScore.append(elName);
-            }
-
-            // Punkte
-            let elPoints = document.createElement('div');
-            elPoints.className = 'scorePoints';
-            elPoints.innerHTML = score.points;
-            elScore.append(elPoints);
-        })
-
     },
     renderLightning() {
         const c = elements.spielfeld;
@@ -105,22 +70,7 @@ const game = {
         // In der alten Runde keinen neuen Blitz zeichnen lassen
         clearTimeout(settings.timerIDNewLightning);
 
-        console.log(settings.scoreTable.some(score => {
-            console.log(score, settings.score.points);
-            return settings.score.points > score.points
-        }));
-        if (settings.scoreTable.some(score => settings.score.points > score.points)) {
-            let name = prompt('Sie haben einen Platz im Highscore erreicht.\nBitte geben Sie ihren Namen ein');
-            settings.score.name = name;
-            fetch('/score', {
-                method:'post',
-                headers: {'content-type': 'application/json'},
-                body: JSON.stringify(settings.score)
-            })
-            // Antwort wird nicht verarbeitet
-        }
-
-        if (confirm(`Wollen Sie noch eine Runde spielen?`)) {
+        if (confirm(`Sie sind am Blitzschlag gestorben.\nSie haben ${settings.player.score} Punkte erreicht.\nWollen Sie noch eine Runde spielen?`)) {
             // game.reset();
             location.reload();
         }
