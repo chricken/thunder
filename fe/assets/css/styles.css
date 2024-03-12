@@ -42,8 +42,8 @@ main {
 .oneScore {
     position: relative;
 
-    font-size: 20px;
-    width:200px;
+    font-size: 18px;
+    width:300px;
 }
 .oneScore.currentPlayer {
     color: rgb(235, 178, 114);
