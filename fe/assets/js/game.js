@@ -11,6 +11,9 @@ const game = {
         settings.potts.forEach(pott => pott.update());
         settings.scores.forEach(score => score.update());
 
+        // Sparks aktualisieren
+        settings.sparks.forEach(spark => spark.update());
+
         // Blitze rendern
         // Weil der Blitz sich nach anderen Timing ausbreitet und es hier sinst zu 
         // Darstellungsfehlern kommen kann, muss zuerst der Blitz gerendert werden, bevor er player upgedatet werden kann.
@@ -77,11 +80,11 @@ const game = {
         const c = elements.spielfeld;
         const ctx = c.getContext('2d');
 
-
         // Score 
         settings.scores.forEach(score => score.render());
 
-
+        // Sparks rendern
+        settings.sparks.forEach(spark => spark.render())
 
         // Potts rendern
         settings.potts.forEach(pott => pott.render())
@@ -107,7 +110,7 @@ const game = {
         if (settings.scoreTable.some(score => settings.score.points > score.points)) {
             // debugger
             let name = prompt(`Sie haben mit ${settings.score.points} Punkten einen Platz im Highscore erreicht.\nBitte geben Sie ihren Namen ein`);
-            if (name.trim() == '') name = settings.dummyNames[~~(Math.random() * settings.dummyNames.length)];
+            if (name === null || name.trim() == '') name = settings.dummyNames[~~(Math.random() * settings.dummyNames.length)];
             settings.score.name = name;
             com.sendNewScore();
         }

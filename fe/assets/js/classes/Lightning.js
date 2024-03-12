@@ -3,11 +3,12 @@
 import settings, { elements } from '../settings.js';
 import Pott from './Pott.js';
 import helpers from '../helpers.js';
+import Spark from '../classes/Spark.js';
 
 class Lightning {
     constructor() {
-        this.minStepWidth = .05;
-        this.maxStepWidth = .1;
+        this.minStepWidth = .02;
+        this.maxStepWidth = .06;
         this.maxDeltaAngle = .2 * Math.PI;
         this.lineWidth = .005;
         this.probabilityToBranch = .15;
@@ -16,7 +17,7 @@ class Lightning {
         this.maxDelayNewPart = 60;
         this.delayRemoveMainPath = 800;
         this.fadeoutSpeed = 20;
-        this.maxPaths =10;
+        this.maxPaths = 9;
 
         this.paths = [[{
             x: Math.random(),
@@ -137,6 +138,17 @@ class Lightning {
             this.paths
                 .filter(path => path[path.length - 1].y >= 1)
                 .forEach(path => {
+                    // Sparks eintragen
+                    path.forEach(part => {
+                        // console.log(part);
+                        settings.sparks.push(
+                            new Spark(part.x, part.y)
+                        )
+                        settings.sparks.push(
+                            new Spark(part.x, part.y)
+                        )
+                    })
+                    // debugger
                     // Killzonen eintragen
                     settings.killZones.push(path[path.length - 1]);
                     setTimeout(() => {

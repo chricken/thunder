@@ -3,6 +3,7 @@
 const settings = {
     elements: {},
     potts: [],
+    sparks: [],
     delayNewLightning: 1200,
     timerIDNewLightning: false,
 
@@ -27,7 +28,7 @@ const settings = {
         'N.N. (Nomen nescio)', 'XYZ', 'Miss Mysterious', 'John Doe', 'Jane Doe', 'Unidentified', 'Empty',
         'Placeholder', 'Noname', 'Mystery Man', 'Ghost', 'Secret', 'Unbenannt', 'Unbekannte/r',
         'Unbekannter Heldenname', 'Geistername', 'Inkognito', 'Phantom', 'Geheimnisvolle Person',
-        'Unbekannte Identität', 'Anon', 'Mr./Mrs. XUnbekannter Benutzer', 'Geheimnisvoller Fremder',
+        'Unbekannte Identität', 'Anon', 'Mr./Mrs. X', 'Unbekannter Benutzer', 'Geheimnisvoller Fremder',
         'Leerzeichen', 'Anonyme Person', 'Platzhaltername', 'Unbekannte Entität', 'Alias',
         'Unbekannter Besitzer', 'Verborgene Identität', 'Geheimagent', 'X. X.', 'Schattenwesen',
         'Mysterium', 'Verschleierter Name', 'Geheimnisvolles Wesen', 'Phantomfigur',
