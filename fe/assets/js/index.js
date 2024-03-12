@@ -12,7 +12,8 @@ const domMapping = () => {
 
 const appendEventlisteners = () => {
     window.addEventListener('resize', game.handleResize);
-    window.addEventListener('keydown', evt => {
+    document.addEventListener('mousedown', settings.player.handleTurn)
+    window.addEventListener('keyup', evt => {
         if (evt.key == ' ' || evt.key == 'Shift' || evt.key == 'Control') {
             settings.player.handleTurn();
         }

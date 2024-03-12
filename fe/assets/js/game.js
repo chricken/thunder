@@ -91,27 +91,25 @@ const game = {
     },
     gameOver() {
         console.warn('Game Over');
-        settings.gameOver = true;
+        // settings.gameOver = true;
 
         // RundenID hochzählen, um diese von der alten Runde unterschieden zu können
-        settings.roundID++;
+        // settings.roundID++;
 
         // In der alten Runde keinen neuen Blitz zeichnen lassen
         clearTimeout(settings.timerIDNewLightning);
 
-        console.log(settings.scoreTable.some(score => {
-            console.log(score, settings.score.points);
-            return settings.score.points > score.points
-        }));
+        // console.log(settings.scoreTable.some(score => {
+        //     console.log(score, settings.score.points);
+        //     return settings.score.points > score.points
+        // }));
+
         if (settings.scoreTable.some(score => settings.score.points > score.points)) {
-            let name = prompt('Sie haben einen Platz im Highscore erreicht.\nBitte geben Sie ihren Namen ein');
+            // debugger
+            let name = prompt(`Sie haben mit ${settings.score.points} Punkten einen Platz im Highscore erreicht.\nBitte geben Sie ihren Namen ein`);
+            if (name.trim() == '') name = settings.dummyNames[~~(Math.random() * settings.dummyNames.length)];
             settings.score.name = name;
-            fetch('/score', {
-                method: 'post',
-                headers: { 'content-type': 'application/json' },
-                body: JSON.stringify(settings.score)
-            })
-            // Antwort wird nicht verarbeitet
+            com.sendNewScore();
         }
 
         if (confirm(`Wollen Sie noch eine Runde spielen?`)) {
@@ -143,6 +141,7 @@ const game = {
         elements.spielfeld.height = size * .95;
     },
     init() {
+        console.log('Neu gelden', ~~(Math.random()*1000));
         com.sendScore({ points: 0 })
         game.handleResize();
         game.reset();

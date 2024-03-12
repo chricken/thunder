@@ -1,14 +1,16 @@
 'use strict';
 
+import { log } from 'console';
 import express from 'express';
 import fs from 'fs';
 import http from 'http';
-import {Server} from 'socket.io';
+import { Server } from 'socket.io';
 
 // Variablen
 let scoreTable = [];
 const filePath = './data/scoretable.json';
 let numScores = 12;
+let overAllNumScores = 200;
 
 // Express
 const expressServer = express();
@@ -36,23 +38,41 @@ io.on('connect', socket => {
         scores.push(score);
 
         // Reihenfolge sortieren
-        scores.sort((a,b) => b.points - a.points);
+        scores.sort((a, b) => b.points - a.points);
 
         // Index des neuen Eintrags
         let index = scores.indexOf(score);
 
+        // console.log(index);
+
         // Index als zusätzliche Info einhängen
-        for(let i = 0; i < scores.length; i++){
+        for (let i = 0; i < scores.length; i++) {
             scores[i].index = i;
         }
 
         // Gewünschte Scores ausschneiden
-        scores = scores.splice(index - ~~(numScores/2), numScores);
+        let min = Math.max(index - ~~(numScores / 2), 0)
+        scores = scores.splice(min, numScores);
         // Leere Felder rausnehmen
         scores = scores.filter(() => true);
 
         // Ergebnis zurückgeben
         socket.emit('getScore', scores)
+    })
+
+    socket.on('setNewScore', score => {
+        scoreTable.push(score);
+        scoreTable.sort((a, b) => b.points - a.scores);
+        if (scoreTable.length > overAllNumScores)
+            scoreTable.length = overAllNumScores;
+
+        fs.writeFile(
+            filePath,
+            JSON.stringify(scoreTable),
+            (err) => {
+                if (err) console.warn(err);
+            }
+        )
     })
 })
 

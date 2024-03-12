@@ -31,9 +31,9 @@ main {
 }
 .oneScore {
     position: relative;
+
     font-size: 20px;
     width:200px;
-    height: 20px;
 }
 .oneScore.currentPlayer {
     color: rgb(235, 178, 114);
@@ -42,10 +42,12 @@ main {
 }
 
 .scoreName {
-    position: absolute;
+    position: relative;
+    display: block;
     left:0;
 }
 .scorePoints {
     position: absolute;
     right:0;
+    top:0;
 }

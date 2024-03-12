@@ -5,11 +5,17 @@ import game from './game.js';
 let socket = io.connect();
 
 const com = {
-    sendScore(){
+    sendScore() {
         socket.emit('setScore', settings.score)
     },
+    sendNewScore(){
+        socket.emit('setNewScore', settings.score);
+    },
     init() {
-        socket.on('getScore', game.drawScoreTable)
+        socket.on('getScore', data => {
+            settings.scoreTable = data;
+            game.drawScoreTable(data);
+        })
     }
 }
 
