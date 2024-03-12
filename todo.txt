@@ -1,0 +1,6 @@
+Sprites einbinden 
+Sparks vom Blitz ablassen
+Nettere Schrift
+Schwierigkeit im Laufe des Spiels erhöhen (lightning.maxPaths)
+Extras (Schutzschild, Extra-Punkte)
+Milestoner ( 10 Blitze überlebt, 100 Pkte erreicht, Extras eingesammelt)

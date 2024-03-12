@@ -1,3 +1,12 @@
+@font-face {
+    font-family: 'silkscreennormal';
+    src: url('/assets/fonts/slkscr.woff2') format('woff2'),
+         url('/assets/fonts/slkscr.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 html,
 body {
     position: relative;
@@ -5,6 +14,7 @@ body {
     margin: 0;
     padding: 0;
     min-height: 100%;
+    font-family: 'silkscreennormal';
 }
 
 main {
